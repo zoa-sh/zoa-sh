@@ -70,8 +70,8 @@ jobs:
 
     - name: Commit and push changes
       run: |
-        git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action"
+        git config --local user.email "zoa@zoa.sh"
+        git config --local user.name "zoa-sh"
         git add README.md
         git commit -m "Update profile ASCII art" || exit 0
         git push
