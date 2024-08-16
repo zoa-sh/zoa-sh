@@ -65,7 +65,7 @@ jobs:
             return f"{created_at.strftime('%Y-%m-%d %H:%M')} | {event_type:15} | {repo}"
 
         def download_font():
-            url = "https://raw.githubusercontent.com/thugcrowd/gangshit/master/gangshit1"
+            url = "https://raw.githubusercontent.com/thugcrowd/gangshit/master/gangshit1.flf"
             response = requests.get(url)
             response.raise_for_status()
             with open("gangshit1.flf", "wb") as f:
