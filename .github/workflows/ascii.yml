@@ -23,33 +23,6 @@ jobs:
         python -m pip install --upgrade pip
         pip install requests pyfiglet
 
-    - name: Debug environment
-      run: |
-        echo "Current directory: $(pwd)"
-        echo "Directory contents:"
-        ls -la
-        echo "Python version:"
-        python --version
-
-    - name: Update profile with ASCII art
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: |
-        python update_profile.py
-
-    - name: Check README content
-      run: |
-        echo "README.md contents:"
-        cat README.md
-
-    - name: Commit and push changes
-      run: |
-        git config --local user.email "zoa@zoa.sh"
-        git config --local user.name "zoa-sh"
-        git add README.md
-        git commit -m "Update profile ASCII art" || echo "No changes to commit"
-        git push || echo "No changes to push"
-
     - name: Create update_profile.py
       run: |
         cat << EOF > update_profile.py
@@ -94,3 +67,31 @@ jobs:
 
         print("README.md has been updated.")
         EOF
+
+    - name: Debug environment
+      run: |
+        echo "Current directory: $(pwd)"
+        echo "Directory contents:"
+        ls -la
+        echo "Python version:"
+        python --version
+        echo "update_profile.py contents:"
+        cat update_profile.py
+
+    - name: Update profile with ASCII art
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: python update_profile.py
+
+    - name: Check README content
+      run: |
+        echo "README.md contents:"
+        cat README.md
+
+    - name: Commit and push changes
+      run: |
+        git config --local user.email "zoa@zoa.sh"
+        git config --local user.name "zoa-sh"
+        git add README.md
+        git commit -m "Update profile ASCII art" || echo "No changes to commit"
+        git push || echo "No changes to push"
