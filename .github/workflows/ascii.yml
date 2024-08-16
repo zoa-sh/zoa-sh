@@ -25,7 +25,7 @@ jobs:
 
     - name: Create Python script
       run: |
-        cat << EOF > update_readme.py
+        cat << 'EOT' > update_readme.py
         import os
         import requests
         from datetime import datetime
@@ -65,7 +65,10 @@ jobs:
             f.write(output)
 
         print("README.md has been updated successfully.")
-        EOF
+        print("Content of README.md:")
+        with open("README.md", "r") as f:
+            print(f.read())
+        EOT
 
     - name: Execute Python script
       env:
