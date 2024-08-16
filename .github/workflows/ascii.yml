@@ -23,11 +23,12 @@ jobs:
         python -m pip install --upgrade pip
         pip install requests pyfiglet
 
-    - name: Create update_profile.py
+    - name: Generate README content
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
-        cat > update_profile.py << EOL
+        python - <<EOF
         import os
-        import sys
         import requests
         from datetime import datetime
         from pyfiglet import Figlet
@@ -49,52 +50,68 @@ jobs:
             created_at = datetime.strptime(activity['created_at'], "%Y-%m-%dT%H:%M:%SZ")
             return f"{created_at.strftime('%Y-%m-%d %H:%M')} | {event_type:15} | {repo}"
 
-        try:
-            username = "zoa-sh"
-            activities = get_github_activity(username)
+        username = "zoa-sh"
+        activities = get_github_activity(username)
 
-            ascii_header = create_ascii_art("Zoa's GitHub")
+        ascii_header = create_ascii_art("Zoa's GitHub")
 
-            output = f"{ascii_header}\n\n"
-            output += "Recent Activity:\n"
-            output += "-" * 60 + "\n"
+        output = f"{ascii_header}\n\n"
+        output += "Recent Activity:\n"
+        output += "-" * 60 + "\n"
 
-            for activity in activities[:5]:  # Display last 5 activities
-                output += format_activity(activity) + "\n"
+        for activity in activities[:5]:  # Display last 5 activities
+            output += format_activity(activity) + "\n"
 
-            output += "-" * 60 + "\n"
-            output += f"\nLast updated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
+        output += "-" * 60 + "\n"
+        output += f"\nLast updated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
 
-            print("Content to be written to README.md:")
-            print(output)
+        print(output)
+        EOF
 
-            with open("README.md", "w") as f:
-                f.write(f"```\n{output}\n```")
+    - name: Update README.md
+      run: |
+        echo '```' > README.md
+        python - <<EOF >> README.md
+        import os
+        import requests
+        from datetime import datetime
+        from pyfiglet import Figlet
 
-            print("README.md has been updated successfully.")
-            
-            with open("README.md", "r") as f:
-                content = f.read()
-                print("Verified README.md contents:")
-                print(content)
-                
-            if not content.strip():
-                raise Exception("README.md is empty after writing")
+        def get_github_activity(username):
+            url = f"https://api.github.com/users/{username}/events/public"
+            headers = {"Authorization": f"token {os.environ['GITHUB_TOKEN']}"}
+            response = requests.get(url, headers=headers)
+            response.raise_for_status()
+            return response.json()
 
-        except Exception as e:
-            print(f"An error occurred: {str(e)}", file=sys.stderr)
-            print(f"Current working directory: {os.getcwd()}", file=sys.stderr)
-            print(f"Contents of current directory:", file=sys.stderr)
-            print(os.listdir(), file=sys.stderr)
-            print(f"README.md permissions:", file=sys.stderr)
-            print(os.stat("README.md"), file=sys.stderr)
-            raise
-        EOL
+        def create_ascii_art(text):
+            f = Figlet(font='slant')
+            return f.renderText(text)
 
-    - name: Run update_profile.py
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: python update_profile.py
+        def format_activity(activity):
+            event_type = activity['type'].replace('Event', '')
+            repo = activity['repo']['name']
+            created_at = datetime.strptime(activity['created_at'], "%Y-%m-%dT%H:%M:%SZ")
+            return f"{created_at.strftime('%Y-%m-%d %H:%M')} | {event_type:15} | {repo}"
+
+        username = "zoa-sh"  # Replace with your GitHub username
+        activities = get_github_activity(username)
+
+        ascii_header = create_ascii_art("Zoa's GitHub")
+
+        output = f"{ascii_header}\n\n"
+        output += "Recent Activity:\n"
+        output += "-" * 60 + "\n"
+
+        for activity in activities[:5]:  # Display last 5 activities
+            output += format_activity(activity) + "\n"
+
+        output += "-" * 60 + "\n"
+        output += f"\nLast updated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
+
+        print(output)
+        EOF
+        echo '```' >> README.md
 
     - name: Debug file contents
       run: |
