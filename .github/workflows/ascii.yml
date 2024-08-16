@@ -52,7 +52,7 @@ jobs:
             return f"{created_at.strftime('%Y-%m-%d %H:%M')} | {event_type:15} | {repo}"
 
         try:
-            username = "zoa-sh"  # Replace with your GitHub username
+            username = "zoa-sh"
             activities = get_github_activity(username)
 
             ascii_header = create_ascii_art("Zoa's GitHub")
@@ -70,8 +70,11 @@ jobs:
             print("Content to be written to README.md:")
             print(output)
 
+            # Write content to file
             with open("README.md", "w") as f:
-                f.write(f"```\n{output}\n```")
+                print("```", file=f)
+                print(output, file=f)
+                print("```", file=f)
 
             print("README.md has been updated successfully.")
             
@@ -81,7 +84,7 @@ jobs:
                 print("Verified README.md contents:")
                 print(content)
                 
-            if not content:
+            if not content.strip():
                 raise Exception("README.md is empty after writing")
 
         except Exception as e:
@@ -89,6 +92,8 @@ jobs:
             print(f"Current working directory: {os.getcwd()}", file=sys.stderr)
             print(f"Contents of current directory:", file=sys.stderr)
             print(os.listdir(), file=sys.stderr)
+            print(f"README.md permissions:", file=sys.stderr)
+            print(os.stat("README.md"), file=sys.stderr)
             raise
         EOF
 
