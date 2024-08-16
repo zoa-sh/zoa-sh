@@ -1,10 +1,24 @@
 ```
- _____              _          _______ __  __  __      __  
-/__  /  ____  ____ ( )_____   / ____(_) /_/ / / /_  __/ /_ 
-  / /  / __ \/ __ `/// ___/  / / __/ / __/ /_/ / / / / __ \
- / /__/ /_/ / /_/ / (__  )  / /_/ / / /_/ __  / /_/ / /_/ /
-/____/\____/\__,_/ /____/   \____/_/\__/_/ /_/\__,_/_.___/ 
-                                                           
+                                        ',.                        
+                                       .lkxc.                      
+                                        ;xxx:                      
+                          ....          'dxxd;                     
+.oxxdl,...   ....       'codxo:.        .oxxxd,                    
+,dxxxdddlc::lc.        'c,.;oxxxo.      .oxxxxo'                   
+ ;xxo'....,:,         'dc.  .:dxxo.     .lxxdxxo.  .,cc;           
+ .okl.  .;:.  .      ;lx,     ,dxxl     .lkx:;dxl,;oxl,.           
+ .::.  .c;  .:o:     oxd'      ;xxx     .lkx;.:xxxdc'              
+      ,o,   'dxd,    xxd'      .oxxx  ...'oxxocccoxd,              
+     :o,    .cxxd;   xxx;       cxxc....;dxx:.  .:xd:.             
+    :d;      .cxxxc. xxxl.      ;xx,    .oxx,     ,oxl'            
+   ;d:    ..',cdxxxo'xxxx;      ;xo.    'dxd'      .:dd:.          
+ ;do..',;;::cldxxxxd:.xxxd,     :x;     ;xxo.        .cdo;.        
+ dxl,...      ..;lxdl llxxd:.  .oc.    .cxxc           'cdo;.      
+cdxl'              ..  'cxxxdl:c;.      ':;.             'cdo;.    
+.,'                      ,cooc;.                           .:dd:.  
+                          'cd'                               .,:,. 
+                                                                   
+                                                                   
 
 ```
 
@@ -29,12 +43,12 @@ Try my website on curl: `curl zoa.sh`
 ## Recent Activity
 ```
 ------------------------------------------------------------
-2024-08-16 21:17 | Push            | zoa-sh/zoa.sh
-2024-08-16 21:14 | Push            | zoa-sh/zoa.sh
-2024-08-16 21:12 | Push            | zoa-sh/zoa.sh
-2024-08-16 21:08 | Create          | zoa-sh/zoa.sh
-2024-08-16 20:58 | Create          | zoa-sh/zoa.sh
+2024-08-16 21:50 | Push            | zoa-sh/zoa-sh
+2024-08-16 21:36 | Watch           | cilium/cilium
+2024-08-16 21:27 | Watch           | xx0hcd/Malleable-C2-Profiles
+2024-08-16 21:27 | Watch           | rust-lang/cargo
+2024-08-16 21:27 | Watch           | b23r0/Heroinn
 ------------------------------------------------------------
 
-Last updated: 2024-08-16 21:18:26
+Last updated: 2024-08-16 21:50:25
 ```
