@@ -38,7 +38,7 @@ jobs:
             response.raise_for_status()
             return response.json()
 
-        def get_top_languages(username):
+        def get_all_languages(username):
             url = f"https://api.github.com/users/{username}/repos"
             headers = {"Authorization": f"token {os.environ['GITHUB_TOKEN']}"}
             response = requests.get(url, headers=headers)
@@ -47,12 +47,18 @@ jobs:
             
             languages = {}
             for repo in repos:
-                language = repo['language']
-                if language:
-                    languages[language] = languages.get(language, 0) + 1
+                lang_url = repo['languages_url']
+                lang_response = requests.get(lang_url, headers=headers)
+                lang_response.raise_for_status()
+                repo_languages = lang_response.json()
+                
+                for language, bytes_count in repo_languages.items():
+                    languages[language] = languages.get(language, 0) + bytes_count
             
-            sorted_languages = sorted(languages.items(), key=lambda x: x[1], reverse=True)
-            return sorted_languages[:5]  # Return top 5 languages
+            total_bytes = sum(languages.values())
+            language_percentages = {lang: (count / total_bytes) * 100 for lang, count in languages.items()}
+            sorted_languages = sorted(language_percentages.items(), key=lambda x: x[1], reverse=True)
+            return sorted_languages[:10]  # Return top 10 languages
 
         def create_ascii_bar(percentage, width=20):
             filled_width = int(width * percentage / 100)
@@ -75,7 +81,7 @@ jobs:
 
         username = "zoa-sh"
         activities = get_github_activity(username)
-        top_languages = get_top_languages(username)
+        top_languages = get_all_languages(username)
 
         f = Figlet(font='gangshit1', width=200)
         ascii_header = f.renderText('ZOA')
@@ -99,10 +105,8 @@ jobs:
 
         output += "## 🛠️ Top Languages\n"
         output += "```\n"
-        total = sum(lang[1] for lang in top_languages)
-        for lang, count in top_languages:
-            percentage = (count / total) * 100
-            output += f"{lang:<10} {create_ascii_bar(percentage)} {percentage:.1f}%\n"
+        for lang, percentage in top_languages:
+            output += f"{lang:<12} {create_ascii_bar(percentage)} {percentage:.1f}%\n"
         output += "```\n\n"
 
         output += "## 📫 Get in Touch\n"
