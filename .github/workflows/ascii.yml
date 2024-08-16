@@ -29,6 +29,7 @@ jobs:
       run: |
         cat << EOF > update_profile.py
         import os
+        import sys
         import requests
         from datetime import datetime
         from pyfiglet import Figlet
@@ -73,8 +74,21 @@ jobs:
                 f.write(f"```\n{output}\n```")
 
             print("README.md has been updated successfully.")
+            
+            # Verify file contents
+            with open("README.md", "r") as f:
+                content = f.read()
+                print("Verified README.md contents:")
+                print(content)
+                
+            if not content:
+                raise Exception("README.md is empty after writing")
+
         except Exception as e:
-            print(f"An error occurred: {str(e)}")
+            print(f"An error occurred: {str(e)}", file=sys.stderr)
+            print(f"Current working directory: {os.getcwd()}", file=sys.stderr)
+            print(f"Contents of current directory:", file=sys.stderr)
+            print(os.listdir(), file=sys.stderr)
             raise
         EOF
 
