@@ -35,7 +35,7 @@ jobs:
             url = f"https://api.github.com/users/{username}/events/public"
             headers = {"Authorization": f"token {os.environ['GITHUB_TOKEN']}"}
             response = requests.get(url, headers=headers)
-            response.raise_for_status()  # Raise an exception for bad responses
+            response.raise_for_status()
             return response.json()
 
         def create_ascii_art(text):
@@ -64,12 +64,19 @@ jobs:
             output += "-" * 60 + "\n"
             output += f"\nLast updated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
 
+            print("Content to be written to README.md:")
+            print(output)
+
             with open("README.md", "w") as f:
                 f.write(f"```\n{output}\n```")
 
             print("README.md has been updated successfully.")
-            print("Content written to README.md:")
-            print(output)
+            
+            # Debug: Check file contents after writing
+            with open("README.md", "r") as f:
+                print("Contents of README.md after writing:")
+                print(f.read())
+
         except Exception as e:
             print(f"An error occurred: {str(e)}")
             raise
@@ -78,17 +85,26 @@ jobs:
     - name: Update profile with ASCII art
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: python update_profile.py
+      run: |
+        python update_profile.py
+        echo "Current directory contents:"
+        ls -la
+        echo "README.md permissions:"
+        ls -l README.md
 
     - name: Check README content
       run: |
         echo "README.md contents:"
         cat README.md
+        echo "File size of README.md:"
+        wc -c README.md
 
     - name: Commit and push changes
       run: |
         git config --local user.email "zoa@zoa.sh"
         git config --local user.name "zoa-sh"
+        git status
         git add README.md
+        git status
         git commit -m "Update profile ASCII art" || echo "No changes to commit"
         git push || echo "No changes to push"
