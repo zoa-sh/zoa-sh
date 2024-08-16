@@ -23,11 +23,9 @@ jobs:
         python -m pip install --upgrade pip
         pip install requests pyfiglet
 
-    - name: Create and run update_profile.py
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Create update_profile.py
       run: |
-        cat << EOF > update_profile.py
+        cat > update_profile.py << EOL
         import os
         import sys
         import requests
@@ -70,15 +68,11 @@ jobs:
             print("Content to be written to README.md:")
             print(output)
 
-            # Write content to file
             with open("README.md", "w") as f:
-                print("```", file=f)
-                print(output, file=f)
-                print("```", file=f)
+                f.write(f"```\n{output}\n```")
 
             print("README.md has been updated successfully.")
             
-            # Verify file contents
             with open("README.md", "r") as f:
                 content = f.read()
                 print("Verified README.md contents:")
@@ -95,9 +89,12 @@ jobs:
             print(f"README.md permissions:", file=sys.stderr)
             print(os.stat("README.md"), file=sys.stderr)
             raise
-        EOF
+        EOL
 
-        python update_profile.py
+    - name: Run update_profile.py
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: python update_profile.py
 
     - name: Debug file contents
       run: |
