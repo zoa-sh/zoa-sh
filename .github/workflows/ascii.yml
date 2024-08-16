@@ -23,11 +23,9 @@ jobs:
         python -m pip install --upgrade pip
         pip install requests pyfiglet
 
-    - name: Update README.md
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Create Python script
       run: |
-        python - <<EOF > README.md
+        cat << EOF > update_readme.py
         import os
         import requests
         from datetime import datetime
@@ -52,22 +50,27 @@ jobs:
 
         username = "zoa-sh"
         activities = get_github_activity(username)
-
         ascii_header = create_ascii_art("Zoa's GitHub")
 
         output = f"```\n{ascii_header}\n\n"
         output += "Recent Activity:\n"
         output += "-" * 60 + "\n"
-
         for activity in activities[:5]:  # Display last 5 activities
             output += format_activity(activity) + "\n"
-
         output += "-" * 60 + "\n"
         output += f"\nLast updated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
         output += "\n```"
 
-        print(output)
+        with open("README.md", "w") as f:
+            f.write(output)
+
+        print("README.md has been updated successfully.")
         EOF
+
+    - name: Execute Python script
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: python update_readme.py
 
     - name: Debug file contents
       run: |
