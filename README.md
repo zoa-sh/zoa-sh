@@ -40,7 +40,10 @@ I'm a tech-savvy professional with expertise in computer science, programming, s
 
 ## 🛠️ Top Languages
 ```
-Handlebars [####################] 100.0%
+Handlebars   [########------------] 40.2%
+Rust         [######--------------] 30.5%
+CSS          [####----------------] 24.4%
+JavaScript   [--------------------] 4.9%
 ```
 
 ## 📫 Get in Touch
@@ -53,14 +56,14 @@ Try my website on curl: `curl zoa.sh`
 ## 🔥 Recent Activity
 ```
 ------------------------------------------------------------
+2024-08-16 22:06 | Push            | zoa-sh/zoa-sh
 2024-08-16 22:03 | Push            | zoa-sh/zoa-sh
 2024-08-16 22:03 | Push            | zoa-sh/zoa-sh
 2024-08-16 21:50 | Push            | zoa-sh/zoa-sh
 2024-08-16 21:36 | Watch           | cilium/cilium
-2024-08-16 21:27 | Watch           | xx0hcd/Malleable-C2-Profiles
 ------------------------------------------------------------
 
-Last updated: 2024-08-16 22:04:07
+Last updated: 2024-08-16 22:06:51
 ```
 ---
 <p align="center">This README is <b>auto-generated</b> with Python and GitHub Actions</p>
