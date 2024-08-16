@@ -24,6 +24,11 @@ cdxl'              ..  'cxxxdl:c;.      ':;.             'cdo;.
 
 🚀 Welcome to my GitHub profile!
 
+[![Website](https://img.shields.io/website?label=zoa.sh&style=for-the-badge&url=https%3A%2F%2Fzoa.sh)](https://zoa.sh)
+[![Twitter Follow](https://img.shields.io/twitter/follow/zoa_sh?color=1DA1F2&logo=twitter&style=for-the-badge)](https://twitter.com/intent/follow?original_referer=https%3A%2F%2Fgithub.com%2Fzoa-sh&screen_name=zoa_sh)
+[![GitHub followers](https://img.shields.io/github/followers/zoa-sh?logo=GitHub&style=for-the-badge)](https://github.com/zoa-sh)
+[![GitHub Stars](https://img.shields.io/github/stars/zoa-sh?logo=github&style=for-the-badge)](https://github.com/zoa-sh)
+
 ## 👾 About Me
 I'm a tech-savvy professional with expertise in computer science, programming, security, networking, engineering, and repair. As an incredibly fast learner, I'm always looking to simplify, automate, and master new challenges and projects with an out-of-the-box mindset.
 
@@ -33,6 +38,11 @@ I'm a tech-savvy professional with expertise in computer science, programming, s
 - 🔒 Malware development and analysis explorer
 - 🌐 Networking nerd (especially BGP)
 
+## 🛠️ Top Languages
+```
+Handlebars [####################] 100.0%
+```
+
 ## 📫 Get in Touch
 - Website: [zoa.sh](https://zoa.sh)
 - Email: zoa@zoa.sh
@@ -40,15 +50,17 @@ I'm a tech-savvy professional with expertise in computer science, programming, s
 ## 💡 Fun Fact
 Try my website on curl: `curl zoa.sh`
 
-## Recent Activity
+## 🔥 Recent Activity
 ```
 ------------------------------------------------------------
+2024-08-16 22:03 | Push            | zoa-sh/zoa-sh
+2024-08-16 22:03 | Push            | zoa-sh/zoa-sh
 2024-08-16 21:50 | Push            | zoa-sh/zoa-sh
 2024-08-16 21:36 | Watch           | cilium/cilium
 2024-08-16 21:27 | Watch           | xx0hcd/Malleable-C2-Profiles
-2024-08-16 21:27 | Watch           | rust-lang/cargo
-2024-08-16 21:27 | Watch           | b23r0/Heroinn
 ------------------------------------------------------------
 
-Last updated: 2024-08-16 21:50:25
+Last updated: 2024-08-16 22:04:07
 ```
+---
+<p align="center">This README is <b>auto-generated</b> with Python and GitHub Actions</p>
