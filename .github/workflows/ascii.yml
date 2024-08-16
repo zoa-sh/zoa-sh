@@ -23,7 +23,9 @@ jobs:
         python -m pip install --upgrade pip
         pip install requests pyfiglet
 
-    - name: Create update_profile.py
+    - name: Create and run update_profile.py
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         cat << EOF > update_profile.py
         import os
@@ -71,29 +73,19 @@ jobs:
                 f.write(f"```\n{output}\n```")
 
             print("README.md has been updated successfully.")
-            
-            # Debug: Check file contents after writing
-            with open("README.md", "r") as f:
-                print("Contents of README.md after writing:")
-                print(f.read())
-
         except Exception as e:
             print(f"An error occurred: {str(e)}")
             raise
         EOF
 
-    - name: Update profile with ASCII art
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: |
         python update_profile.py
+
+    - name: Debug file contents
+      run: |
         echo "Current directory contents:"
         ls -la
         echo "README.md permissions:"
         ls -l README.md
-
-    - name: Check README content
-      run: |
         echo "README.md contents:"
         cat README.md
         echo "File size of README.md:"
@@ -103,8 +95,13 @@ jobs:
       run: |
         git config --local user.email "zoa@zoa.sh"
         git config --local user.name "zoa-sh"
-        git status
         git add README.md
         git status
+        git diff --cached
         git commit -m "Update profile ASCII art" || echo "No changes to commit"
         git push || echo "No changes to push"
+
+    - name: Final check
+      run: |
+        echo "Final README.md contents:"
+        cat README.md
