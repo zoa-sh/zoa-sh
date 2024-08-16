@@ -38,19 +38,26 @@ jobs:
             response.raise_for_status()
             return response.json()
 
-        def create_ascii_art(text):
-            f = Figlet(font='slant')
-            return f.renderText(text)
-
         def format_activity(activity):
             event_type = activity['type'].replace('Event', '')
             repo = activity['repo']['name']
             created_at = datetime.strptime(activity['created_at'], "%Y-%m-%dT%H:%M:%SZ")
             return f"{created_at.strftime('%Y-%m-%d %H:%M')} | {event_type:15} | {repo}"
 
+        def download_font():
+            url = "https://raw.githubusercontent.com/thugcrowd/gangshit/master/gangshit1.flf"
+            response = requests.get(url)
+            response.raise_for_status()
+            with open("gangshit1.flf", "wb") as f:
+                f.write(response.content)
+
+        download_font()
+
         username = "zoa-sh"
         activities = get_github_activity(username)
-        ascii_header = create_ascii_art("Zoa's GitHub")
+
+        f = Figlet(font='gangshit1', width=200)
+        ascii_header = f.renderText('ZOA')
 
         output = f"```\n{ascii_header}\n```\n\n"
         output += "🚀 Welcome to my GitHub profile!\n\n"
