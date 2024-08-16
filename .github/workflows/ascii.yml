@@ -38,6 +38,26 @@ jobs:
             response.raise_for_status()
             return response.json()
 
+        def get_top_languages(username):
+            url = f"https://api.github.com/users/{username}/repos"
+            headers = {"Authorization": f"token {os.environ['GITHUB_TOKEN']}"}
+            response = requests.get(url, headers=headers)
+            response.raise_for_status()
+            repos = response.json()
+            
+            languages = {}
+            for repo in repos:
+                language = repo['language']
+                if language:
+                    languages[language] = languages.get(language, 0) + 1
+            
+            sorted_languages = sorted(languages.items(), key=lambda x: x[1], reverse=True)
+            return sorted_languages[:5]  # Return top 5 languages
+
+        def create_ascii_bar(percentage, width=20):
+            filled_width = int(width * percentage / 100)
+            return f"[{'#' * filled_width}{'-' * (width - filled_width)}]"
+
         def format_activity(activity):
             event_type = activity['type'].replace('Event', '')
             repo = activity['repo']['name']
@@ -45,7 +65,7 @@ jobs:
             return f"{created_at.strftime('%Y-%m-%d %H:%M')} | {event_type:15} | {repo}"
 
         def download_font():
-            url = "https://raw.githubusercontent.com/thugcrowd/gangshit/master/gangshit1.flf"
+            url = "https://raw.githubusercontent.com/thugcrowd/gangshit/master/gangshit1"
             response = requests.get(url)
             response.raise_for_status()
             with open("gangshit1.flf", "wb") as f:
@@ -55,12 +75,20 @@ jobs:
 
         username = "zoa-sh"
         activities = get_github_activity(username)
+        top_languages = get_top_languages(username)
 
         f = Figlet(font='gangshit1', width=200)
         ascii_header = f.renderText('ZOA')
 
         output = f"```\n{ascii_header}\n```\n\n"
         output += "🚀 Welcome to my GitHub profile!\n\n"
+
+        # Adding badges
+        output += "[![Website](https://img.shields.io/website?label=zoa.sh&style=for-the-badge&url=https%3A%2F%2Fzoa.sh)](https://zoa.sh)\n"
+        output += "[![Twitter Follow](https://img.shields.io/twitter/follow/zoa_sh?color=1DA1F2&logo=twitter&style=for-the-badge)](https://twitter.com/intent/follow?original_referer=https%3A%2F%2Fgithub.com%2Fzoa-sh&screen_name=zoa_sh)\n"
+        output += "[![GitHub followers](https://img.shields.io/github/followers/zoa-sh?logo=GitHub&style=for-the-badge)](https://github.com/zoa-sh)\n"
+        output += "[![GitHub Stars](https://img.shields.io/github/stars/zoa-sh?logo=github&style=for-the-badge)](https://github.com/zoa-sh)\n\n"
+
         output += "## 👾 About Me\n"
         output += "I'm a tech-savvy professional with expertise in computer science, programming, security, networking, engineering, and repair. As an incredibly fast learner, I'm always looking to simplify, automate, and master new challenges and projects with an out-of-the-box mindset.\n\n"
         output += "- 🐱 Cat lover\n"
@@ -68,12 +96,23 @@ jobs:
         output += "- 🖥️ Open-source contributor\n"
         output += "- 🔒 Malware development and analysis explorer\n"
         output += "- 🌐 Networking nerd (especially BGP)\n\n"
+
+        output += "## 🛠️ Top Languages\n"
+        output += "```\n"
+        total = sum(lang[1] for lang in top_languages)
+        for lang, count in top_languages:
+            percentage = (count / total) * 100
+            output += f"{lang:<10} {create_ascii_bar(percentage)} {percentage:.1f}%\n"
+        output += "```\n\n"
+
         output += "## 📫 Get in Touch\n"
         output += "- Website: [zoa.sh](https://zoa.sh)\n"
         output += "- Email: zoa@zoa.sh\n\n"
+
         output += "## 💡 Fun Fact\n"
         output += "Try my website on curl: `curl zoa.sh`\n\n"
-        output += "## Recent Activity\n"
+
+        output += "## 🔥 Recent Activity\n"
         output += "```\n"
         output += "-" * 60 + "\n"
         for activity in activities[:5]:  # Display last 5 activities
@@ -81,6 +120,9 @@ jobs:
         output += "-" * 60 + "\n"
         output += f"\nLast updated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
         output += "\n```"
+
+        output += "\n---\n"
+        output += "<p align=\"center\">This README is <b>auto-generated</b> with Python and GitHub Actions</p>\n"
 
         with open("README.md", "w") as f:
             f.write(output)
@@ -96,28 +138,10 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: python update_readme.py
 
-    - name: Debug file contents
-      run: |
-        echo "Current directory contents:"
-        ls -la
-        echo "README.md permissions:"
-        ls -l README.md
-        echo "README.md contents:"
-        cat README.md
-        echo "File size of README.md:"
-        wc -c README.md
-
     - name: Commit and push changes
       run: |
         git config --local user.email "zoa@zoa.sh"
         git config --local user.name "zoa-sh"
         git add README.md
-        git status
-        git diff --cached
-        git commit -m "Update profile ASCII art" || echo "No changes to commit"
+        git commit -m "Update profile README" || echo "No changes to commit"
         git push || echo "No changes to push"
-
-    - name: Final check
-      run: |
-        echo "Final README.md contents:"
-        cat README.md
