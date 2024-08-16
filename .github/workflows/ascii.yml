@@ -1,0 +1,76 @@
+name: Update GitHub Profile ASCII Art
+
+on:
+  schedule:
+    - cron: "0 */6 * * *"  # Runs every 6 hours
+  workflow_dispatch:  # Allows manual triggering
+
+jobs:
+  update-profile:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install requests pyfiglet
+
+    - name: Update profile with ASCII art
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        python - <<EOF
+        import requests
+        import json
+        from datetime import datetime, timedelta
+        from pyfiglet import Figlet
+
+        def get_github_activity(username):
+            url = f"https://api.github.com/users/{username}/events/public"
+            headers = {"Authorization": f"token {os.environ['GITHUB_TOKEN']}"}
+            response = requests.get(url, headers=headers)
+            return response.json()
+
+        def create_ascii_art(text):
+            f = Figlet(font='slant')
+            return f.renderText(text)
+
+        def format_activity(activity):
+            event_type = activity['type'].replace('Event', '')
+            repo = activity['repo']['name']
+            created_at = datetime.strptime(activity['created_at'], "%Y-%m-%dT%H:%M:%SZ")
+            return f"{created_at.strftime('%Y-%m-%d %H:%M')} | {event_type:15} | {repo}"
+
+        username = "zoa-sh"  # Replace with your GitHub username
+        activities = get_github_activity(username)
+
+        ascii_header = create_ascii_art("Zoa's GitHub")
+
+        output = f"{ascii_header}\n\n"
+        output += "Recent Activity:\n"
+        output += "-" * 60 + "\n"
+
+        for activity in activities[:5]:  # Display last 5 activities
+            output += format_activity(activity) + "\n"
+
+        output += "-" * 60 + "\n"
+        output += f"\nLast updated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
+
+        with open("profile/README.md", "w") as f:
+            f.write(f"```\n{output}\n```")
+
+        EOF
+
+    - name: Commit and push changes
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add profile/README.md
+        git commit -m "Update profile ASCII art" || exit 0
+        git push
