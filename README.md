@@ -63,7 +63,7 @@ Try my website on curl: `curl zoa.sh`
 2024-08-25 10:27 | Watch           | xtaci/kcptun
 ------------------------------------------------------------
 
-Last updated: 2024-08-31 06:19:43
+Last updated: 2024-08-31 12:27:26
 ```
 ---
 <p align="center">This README is <b>auto-generated</b> with Python and GitHub Actions</p>
