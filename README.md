@@ -56,14 +56,14 @@ Try my website on curl: `curl zoa.sh`
 ## 🔥 Recent Activity
 ```
 ------------------------------------------------------------
+2024-08-31 18:03 | Watch           | xero/evangelion.nvim
 2024-08-30 00:28 | Watch           | DC801/BM-Badge
 2024-08-29 23:53 | Watch           | vosen/ZLUDA
 2024-08-25 13:25 | Watch           | amazonlinux/amazon-linux-2023
 2024-08-25 11:41 | Watch           | libp2p/rust-libp2p
-2024-08-25 10:27 | Watch           | xtaci/kcptun
 ------------------------------------------------------------
 
-Last updated: 2024-08-31 12:27:26
+Last updated: 2024-08-31 18:18:23
 ```
 ---
 <p align="center">This README is <b>auto-generated</b> with Python and GitHub Actions</p>
