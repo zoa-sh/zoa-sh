@@ -144,8 +144,8 @@ jobs:
 
     - name: Commit and push changes
       run: |
-        git config --local user.email "zoa@zoa.sh"
-        git config --local user.name "zoa-sh"
+        git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+        git config --local user.name "github-actions"
         git add README.md
         git commit -m "Update profile README" || echo "No changes to commit"
         git push || echo "No changes to push"
