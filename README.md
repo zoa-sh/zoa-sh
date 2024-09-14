@@ -43,7 +43,7 @@ I'm a tech-savvy professional with expertise in computer science, programming, s
 Handlebars   [#######-------------] 35.7%
 Rust         [#######-------------] 35.1%
 CSS          [####----------------] 24.4%
-JavaScript   [--------------------] 4.8%
+JavaScript   [--------------------] 4.7%
 ```
 
 ## 📫 Get in Touch
@@ -56,14 +56,14 @@ Try my website on curl: `curl zoa.sh`
 ## 🔥 Recent Activity
 ```
 ------------------------------------------------------------
+2024-09-14 00:32 | Push            | zoa-sh/zoa.sh
+2024-09-14 00:30 | Push            | zoa-sh/zoa.sh
 2024-09-14 00:23 | Push            | zoa-sh/zoa.sh
 2024-09-14 00:18 | Push            | zoa-sh/zoa.sh
 2024-09-14 00:14 | Push            | zoa-sh/zoa.sh
-2024-09-13 20:56 | Push            | zoa-sh/zoa-sh
-2024-09-13 15:00 | Watch           | rust-lang/rust
 ------------------------------------------------------------
 
-Last updated: 2024-09-14 00:26:14
+Last updated: 2024-09-14 01:10:11
 ```
 ---
 <p align="center">This README is <b>auto-generated</b> with Python and GitHub Actions</p>
