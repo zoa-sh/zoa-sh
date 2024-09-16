@@ -40,10 +40,10 @@ I'm a tech-savvy professional with expertise in computer science, programming, s
 
 ## 🛠️ Top Languages
 ```
-Handlebars   [#######-------------] 35.7%
-Rust         [#######-------------] 35.1%
-CSS          [####----------------] 24.4%
-JavaScript   [--------------------] 4.7%
+Handlebars   [#######-------------] 35.3%
+Rust         [#######-------------] 35.3%
+CSS          [####----------------] 24.6%
+JavaScript   [--------------------] 4.8%
 ```
 
 ## 📫 Get in Touch
@@ -56,14 +56,14 @@ Try my website on curl: `curl zoa.sh`
 ## 🔥 Recent Activity
 ```
 ------------------------------------------------------------
-2024-09-16 00:46 | Watch           | SomajitDey/ipfs-chat
-2024-09-14 00:32 | Push            | zoa-sh/zoa.sh
-2024-09-14 00:30 | Push            | zoa-sh/zoa.sh
-2024-09-14 00:23 | Push            | zoa-sh/zoa.sh
-2024-09-14 00:18 | Push            | zoa-sh/zoa.sh
+2024-09-16 19:29 | Watch           | nyxpsi/nyxpsi
+2024-09-16 18:08 | Push            | nyxpsi/docs
+2024-09-16 18:08 | PullRequest     | nyxpsi/docs
+2024-09-16 18:07 | IssueComment    | nyxpsi/docs
+2024-09-16 18:07 | PullRequest     | nyxpsi/docs
 ------------------------------------------------------------
 
-Last updated: 2024-09-16 19:30:43
+Last updated: 2024-09-16 22:20:12
 ```
 ---
 <p align="center">This README is <b>auto-generated</b> with Python and GitHub Actions</p>
